@@ -1,14 +1,11 @@
 
 import random
 import json
-from prettytable import PrettyTable
 
 from lib.libconv.units import decimalMinutesConverter, hoursSec, meterKm, secondsHrs, secondsMin
 from ..libconv import *
 from lib.libbackups import backup
 from lib.libcars.carCompts import hard, soft, medium, defaulTyre
-
-t = PrettyTable()
 
 class phy:
 
@@ -189,6 +186,7 @@ class simmodes:
 
             laptimes[f'{dname} | {dteam}'] = laptime
 
+
         results = dict(sorted(laptimes.items(), key=lambda item: item[1]))   #Clear Camel
 
         for driver, time in results.items():
@@ -221,15 +219,11 @@ class simmodes:
 
                 racetime = decimalMinutesConverter(racetime)            
 
-                totalracetimes[f'{dname} ({dteam})'] = racetime
-
-                #totalracetimes[f'{dname}'] = racetime
+                totalracetimes[f'{dname} | {dteam}'] = racetime
 
             else:
                 
-                totalracetimes[f'{dname} ({dteam})'] = f'DNF - {cId}'
-
-                #totalracetimes[f'{dname}'] = f'DNF - {cId}'
+                totalracetimes[f'{dname} | {dteam}'] = f'DNF - {cId}'
 
         #Sort the dictionary
 
@@ -237,17 +231,12 @@ class simmodes:
 
         #Print
 
-        t.fieldnames = (["Driver", "Race Time"])
-
         for driver, time in results.items():
 
-        #    print(f'\n{str(driver)} | ({str(time)})')
+            print(f'\n{str(driver)} | ({str(time)})')
 
-            t.add_row([str(driver), str(time)])
 
-        print(t)
-
-        backup.savebackup.saveRace(t, track=track)
+        backup.savebackup.saveRace(fullracetimes, track=track)
 
 
 

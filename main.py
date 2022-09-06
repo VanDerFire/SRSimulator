@@ -6,6 +6,7 @@ Concept by VanDerFire
 
 #Import libs
 import os
+from shlex import join
 from lib.libconv.units import decimalMinutesConverter, secondsMin
 from lib.libsimc import *
 from lib.libcars.carCompts import *
@@ -22,11 +23,15 @@ from data.category.FPure22.tracks import *
 #simmodes.raceSimulator(chacaoUC, drivers=drivers)
 #simmodes.timeTrialSimulator(chacaoUC, drivers=drivers)
 
+def joinFolder():
+
+    os.system(f'cd {os.getcwd()}')
+
 def menu():
 
     print('Formula Pure Simulator')
     print('\n[1] Simulate Race')
-    print('\n[2] Simulate Time Sessions')
+    #print('\n[2] Simulate Time Sessions')
 
     sel = input('>: ')
 
@@ -103,5 +108,5 @@ def menu():
         elif sel == '6':
 
             simmodes.timeTrialSimulator(brazilIC, drivers)
-
+1
 menu()

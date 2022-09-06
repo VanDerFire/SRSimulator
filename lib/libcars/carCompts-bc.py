@@ -5,7 +5,6 @@ chassisMaterialPrice = 5000
 minimumChassisWeight = 250
 
 baseEnginePower = 100
-baseEngineWeight = 150
 
 baseTyreDurability = 120000 #Tyre durability in meters at 0.5
 
@@ -19,7 +18,7 @@ class tyre:
 
         self.durability = self.durabilityCalc
 
-        self.performance = self.performanceCalc
+        self.performance = self.durability / 100000
 
     def durabilityCalc(self):
 
@@ -37,12 +36,6 @@ class tyre:
             durability = baseTyreDurability - hardness
 
         return durability 
-
-    def performanceCalc(self):
-
-        performance = self.durability / 100000
-
-        return performance
 
 class chassis:
 
@@ -77,31 +70,21 @@ class engine:
         self.name = name
         self.endurance = endurance
         self.power = power
-        self.weight = baseEngineWeight - weight
-
-        self.efficiency = self.efficiencyCalculator()
+        self.weight = weight
 
         self.unreliability = round((self.power / 10) / self.endurance)
         self.rating = round(self.power - self.unreliability)
 
-    def efficiencyCalculator(self):
-
-        efficiency = self.power + self.endurance
-
-        return efficiency
-
-#FP 2.0 NEW COMPONENTS
-
 class car:
 
-    def __init__(self, team, engine, chassis, tyre):
+    def __init__(self, team, engine, chassis):
 
         self.team = team
         self.engine = engine
         self.chassis = chassis
         
         self.weigth = round(baseChassisWeight + self.engine.weight + self.chassis.weight)
-        self.rating = round(((self.engine.rating + self.chassis.rating) / 2) - (self.weigth / 100))
+        self.rating = round((self.engine.rating + self.chassis.rating) - (self.weigth / 100))
 
     def showInfo(self):
 
